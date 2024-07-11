@@ -11,6 +11,7 @@ Input parameter: desiredDate (DateTime format, example "20240829T10:00:00").
 Usage: The frontend sends us a certain date, this cannot be less than the current date or greater than 8 months from the current time (I have this value in the MaxMonthsToReserve value of appsettings, and therefore could be modified. This value will be equivalent to the maximum number of months that we will allow to obtain appointments).
 Upon receiving the date, the backend must obtain all the available appointments in the week to which that date belongs. If the desired day is not Monday, the backend will obtain the date of Monday of that week to pass it to the slots service.
 Once these free slots are obtained, the output format will be the following:
+
 {"facilityId": "7960f43f-67dc-4bc5-a52b-9a3494306749",
 "freeSlots": [
 {
