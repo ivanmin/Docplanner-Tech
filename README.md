@@ -29,7 +29,7 @@ Once these free slots are obtained, the output format will be the following:
 
 The frontend I would need to know the time of that slot (start and end) and the facilityId that this week is associated with (this value was not in the instructions but the time slot service required that value in the POST method, so the frontend needs to know it and I add it to the response).
 
-Function 2: TakeSlotByUser:
+- Function 2: TakeSlotByUser:
 Input parameter:
 {
 "facilityId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
