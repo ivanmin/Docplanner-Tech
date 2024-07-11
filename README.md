@@ -26,7 +26,6 @@ Once these free slots are obtained, the output format will be the following:
 "end": "2024-07-29T10:10:00"
 },...
 ]}
-
 The frontend I would need to know the time of that slot (start and end) and the facilityId that this week is associated with (this value was not in the instructions but the time slot service required that value in the POST method, so the frontend needs to know it and I add it to the response).
 
 - Function 2: TakeSlotByUser:
