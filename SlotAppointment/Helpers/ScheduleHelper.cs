@@ -16,14 +16,15 @@ namespace SlotAppointment.Helpers
 
                 var dailyBusySlots = daySchedule.BusySlots?.Select(x => x.Start.TimeOfDay).ToHashSet();
                 List<DateTime> dailyAllSlots = GetDailyAllSlots(firstDayOfTheWeek, dayOfWeek, daySchedule.WorkPeriod, schedule.SlotDurationMinutesTimespan);
+                List<DateTime> dailyAllFutureSlots = dailyAllSlots.Where(date => date >= DateTime.Now).ToList();
 
                 if (dailyBusySlots != null)
                 {
-                    weeklyFreeSlots.AddRange(dailyAllSlots.Where(slot => !dailyBusySlots.Contains(slot.TimeOfDay)));
+                    weeklyFreeSlots.AddRange(dailyAllFutureSlots.Where(slot => !dailyBusySlots.Contains(slot.TimeOfDay)));
                 }
                 else
                 {
-                    weeklyFreeSlots.AddRange(dailyAllSlots);
+                    weeklyFreeSlots.AddRange(dailyAllFutureSlots);
                 }
             }
 
