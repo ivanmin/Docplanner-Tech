@@ -4,9 +4,9 @@ Instructions for use:
 
 Just start the application and the UI (Swagger) will open.
 
-I have two functions.
+- I have two functions.
 
-- Function 1: GetWeeklyFreeSlots:
+Function 1: GetWeeklyFreeSlots:
 Input parameter: desiredDate (DateTime format, example "20240829T10:00:00").
 Usage: The frontend sends us a certain date, this cannot be less than the current date or greater than 8 months from the current time (I have this value in the MaxMonthsToReserve value of appsettings, and therefore could be modified. This value will be equivalent to the maximum number of months that we will allow to obtain appointments).
 Upon receiving the date, the backend must obtain all the available appointments in the week to which that date belongs. If the desired day is not Monday, the backend will obtain the date of Monday of that week to pass it to the slots service.
@@ -29,7 +29,7 @@ Once these free slots are obtained, the output format will be the following:
 ]}
 The frontend I would need to know the time of that slot (start and end) and the facilityId that this week is associated with (this value was not in the instructions but the time slot service required that value in the POST method, so the frontend needs to know it and I add it to the response).
 
-- Function 2: TakeSlotByUser:
+Function 2: TakeSlotByUser:
 Input parameter:
 {
 "facilityId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
