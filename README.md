@@ -2,6 +2,8 @@
 Docplanner Tech
 Instructions for use:
 
+The project is developed in NET 7.
+
 Just start the application and the UI (Swagger) will open.
 
 I have two endpoints.
