@@ -54,13 +54,13 @@ namespace SlotAppointment.Helpers
         internal static List<DaySchedule?> MapScheduleToDayScheduleList(Schedule schedule)
         {
             return new List<DaySchedule?>
-        {
-            schedule.Monday,
-            schedule.Tuesday,
-            schedule.Wednesday,
-            schedule.Thursday,
-            schedule.Friday
-        };
+            {
+                schedule.Monday,
+                schedule.Tuesday,
+                schedule.Wednesday,
+                schedule.Thursday,
+                schedule.Friday
+            };
         }
 
         internal static List<Slot> MapListOfDateTimesToSlotsList(List<DateTime> slots, TimeSpan slotDuration)
