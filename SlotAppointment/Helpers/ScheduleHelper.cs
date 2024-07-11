@@ -1,5 +1,4 @@
-﻿using System;
-using SlotAppointment.Dtos;
+﻿using SlotAppointment.Dtos;
 
 namespace SlotAppointment.Helpers
 {

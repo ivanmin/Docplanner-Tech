@@ -3,77 +3,79 @@ using Microsoft.Extensions.Options;
 using SlotAppointment.Dtos;
 using SlotAppointment.Services;
 
-namespace SlotAppointment.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class SlotAppointmentController : ControllerBase
+namespace SlotAppointment.Controllers
 {
-    private readonly ILogger<SlotAppointmentController> _logger;
-    private readonly ISlotAppointmentService _slotBookingService;
-    private readonly AppointmentSettings _appointmentSettings;
-
-    public SlotAppointmentController(ILogger<SlotAppointmentController> logger, ISlotAppointmentService slotBookingService, IOptions<AppointmentSettings> appointmentSettings)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class SlotAppointmentController : ControllerBase
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _slotBookingService = slotBookingService ?? throw new ArgumentNullException(nameof(slotBookingService));
-        _appointmentSettings = appointmentSettings.Value ?? throw new ArgumentNullException(nameof(appointmentSettings));
-    }
+        private readonly ILogger<SlotAppointmentController> _logger;
+        private readonly ISlotAppointmentService _slotBookingService;
+        private readonly AppointmentSettings _appointmentSettings;
 
-    [Route("GetWeeklyFreeSlots")]
-    [HttpGet]
-    public async Task<IActionResult> GetWeeklyFreeSlots(DateTime desiredDate)
-    {
-        try
+        public SlotAppointmentController(ILogger<SlotAppointmentController> logger, ISlotAppointmentService slotBookingService, IOptions<AppointmentSettings> appointmentSettings)
         {
-            if (desiredDate < DateTime.Now)
-            {
-                return BadRequest(new
-                {
-                    error = "InvalidDate",
-                    message = "The appointment desired date cannot be earlier than the current date."
-                });
-            }
-
-            if (desiredDate > DateTime.Now.AddMonths(_appointmentSettings.MaxMonthsForAnAppointment))
-            {
-                return BadRequest(new
-                {
-                    error = "InvalidDate",
-                    message = $"The appointment desired date cannot be later than {_appointmentSettings.MaxMonthsForAnAppointment} months."
-                });
-            }
-
-            return Ok(await _slotBookingService.GetWeeklyFreeSlots(desiredDate));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _slotBookingService = slotBookingService ?? throw new ArgumentNullException(nameof(slotBookingService));
+            _appointmentSettings = appointmentSettings.Value ?? throw new ArgumentNullException(nameof(appointmentSettings));
         }
-        catch (Exception exception)
-        {
-            return Problem(exception.Message);
-        }
-    }
 
-    [Route("TakeSlotByUser")]
-    [HttpPost]
-    public async Task<IActionResult> TakeAppointmentByUser(AppointmentRequest appointmentRequest)
-    {
-        try
+        [Route("GetWeeklyFreeSlots")]
+        [HttpGet]
+        public async Task<IActionResult> GetWeeklyFreeSlots(DateTime desiredDate)
         {
-            if (appointmentRequest == null)
+            try
             {
-                return BadRequest(new
+                if (desiredDate < DateTime.Now)
                 {
-                    error = "InvalidAppointment",
-                    message = "The appointment data is not valid."
-                });
-            }
+                    return BadRequest(new
+                    {
+                        error = "InvalidDate",
+                        message = "The appointment desired date cannot be earlier than the current date."
+                    });
+                }
 
-            await _slotBookingService.TakeAppointmentByUser(appointmentRequest);
-            return Ok();
+                if (desiredDate > DateTime.Now.AddMonths(_appointmentSettings.MaxMonthsForAnAppointment))
+                {
+                    return BadRequest(new
+                    {
+                        error = "InvalidDate",
+                        message = $"The appointment desired date cannot be later than {_appointmentSettings.MaxMonthsForAnAppointment} months."
+                    });
+                }
+
+                return Ok(await _slotBookingService.GetWeeklyFreeSlots(desiredDate));
+            }
+            catch (Exception exception)
+            {
+                return Problem(exception.Message);
+            }
         }
-        catch (Exception exception)
+
+        [Route("TakeSlotByUser")]
+        [HttpPost]
+        public async Task<IActionResult> TakeAppointmentByUser(AppointmentRequest appointmentRequest)
         {
-            return Problem(exception.Message);
+            try
+            {
+                if (appointmentRequest == null)
+                {
+                    return BadRequest(new
+                    {
+                        error = "InvalidAppointment",
+                        message = "The appointment data is not valid."
+                    });
+                }
+
+                await _slotBookingService.TakeAppointmentByUser(appointmentRequest);
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return Problem(exception.Message);
+            }
         }
     }
 }
+
 
