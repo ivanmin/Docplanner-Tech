@@ -39,7 +39,7 @@ namespace SlotAppointment.Helpers
         {
             List<DateTime> response = new();
             DateTime currentDay = firstDayOfTheWeek.Date.AddDays(dayOfWeek);
-            for (TimeSpan time = workPeriod.StartHourTimespan; time < workPeriod.LunchEndHourTimespan; time += slotDurationMinutes)
+            for (TimeSpan time = workPeriod.StartHourTimespan; time < workPeriod.EndHourTimespan; time += slotDurationMinutes)
             {
                 if (time <= workPeriod.LunchStartHourTimespan || time > workPeriod.LunchEndHourTimespan)
                 {
