@@ -51,7 +51,7 @@ namespace SlotAppointment.Helpers
             return response;
         }
 
-        // Asumiendo que estos métodos también son estáticos e internos:
+        
         internal static List<DaySchedule?> MapScheduleToDayScheduleList(Schedule schedule)
         {
             return new List<DaySchedule?>
