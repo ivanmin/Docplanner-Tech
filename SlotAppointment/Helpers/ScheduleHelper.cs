@@ -41,7 +41,7 @@ namespace SlotAppointment.Helpers
             DateTime currentDay = firstDayOfTheWeek.Date.AddDays(dayOfWeek);
             for (TimeSpan time = workPeriod.StartHourTimespan; time < workPeriod.EndHourTimespan; time += slotDurationMinutes)
             {
-                if (time <= workPeriod.LunchStartHourTimespan || time > workPeriod.LunchEndHourTimespan)
+                if (time < workPeriod.LunchStartHourTimespan || time >= workPeriod.LunchEndHourTimespan)
                 {
                     DateTime slot = currentDay.Add(time);
                     response.Add(slot);
